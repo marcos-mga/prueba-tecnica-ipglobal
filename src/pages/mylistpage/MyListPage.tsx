@@ -6,7 +6,11 @@ const MyListPage = (): JSX.Element => {
 
   return (
     <>
-      <Page moviesList={ratedMovies} mode="rated" />
+      <Page
+        moviesList={ratedMovies}
+        mode="rated"
+        data-testid={"page-component"}
+      />
     </>
   );
 };

@@ -23,26 +23,28 @@ const TopBar: React.FC<Props> = ({ mode }: Props) => {
 
   return (
     <AppBar position="sticky" color="primary" sx={{ minHeight: 65 }}>
-      <Toolbar
-        sx={{ bgcolor: "#FFFFFF", width: "auto", m: 1, marginLeft: "auto" }}
-      >
-        <InputBase
-          className={"classes.input"}
-          placeholder="Search movies"
-          value={searchTerm}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchTerm(event.target.value)
-          }
-          onKeyDown={handleKeyDown}
-        />
-        <IconButton
-          type="submit"
-          className={"classes.iconButton"}
-          onClick={handleSearch}
+      {mode === "home" && (
+        <Toolbar
+          sx={{ bgcolor: "#FFFFFF", width: "auto", m: 1, marginLeft: "auto" }}
         >
-          <SearchIcon />
-        </IconButton>
-      </Toolbar>
+          <InputBase
+            className={"classes.input"}
+            placeholder="Search movies"
+            value={searchTerm}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm(event.target.value)
+            }
+            onKeyDown={handleKeyDown}
+          />
+          <IconButton
+            type="submit"
+            className={"classes.iconButton"}
+            onClick={handleSearch}
+          >
+            <SearchIcon />
+          </IconButton>
+        </Toolbar>
+      )}
     </AppBar>
   );
 };

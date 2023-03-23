@@ -22,19 +22,28 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   };
 
   return (
-    <Card>
+    <Card data-testid={"movie-card"}>
       <CardMedia
-        className={"classes.media"}
         image={`${process.env.REACT_APP_TMDB_IMG_BASE_ENDPOINT}${movie.posterPath}`}
         sx={{ height: 140 }}
         title={movie.title}
         onClick={handleShowDetails}
       />
       <CardContent sx={{ height: 140 }}>
-        <Typography gutterBottom variant="h5" component="h2">
+        <Typography
+          data-testid={"movie-title"}
+          gutterBottom
+          variant="h5"
+          component="h2"
+        >
           {movie.title}
         </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography
+          data-testid={"movie-date"}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
           {movie.releaseDate}
         </Typography>
       </CardContent>
