@@ -1,6 +1,58 @@
-# Getting Started with Create React App
+# Prueba técnica IpGlobal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Buenas!
+
+Antes de nada, un placer!
+
+Ahora mismo el desarrollo de la aplicación estaría completo salvo la parte de la lista de películas puntuadas, que necesito implementar el endpoint en el hook useMoviesApi para luego usaro en MyListPage.
+No he podido probar la integración con API más allá de la carga inicial de películas populares debido al problema persistente. El resto de integraciones cómo la páginación, la búsqueda, rating...etc no he podido probarlos.
+
+Me hubiese gustado tener más tiempo ya que realmente he empezado el miércoles 22 y el tema de la API me ha trastocado un poco los planes.
+
+En cuanto al código, me hubiese gustado montar una buena estructura DDD pero por tiempo he decidido tirar un poco por lo de siempre intentando que la estructura fuera descriptiva y sencilla al tratarse de una funcionalidad limitida.
+
+Por otra parte, mi planteamiento en cuanto a componentes ha sido utilzar un componente base Page.tsx, que al final la aplicación tiene dos pages y el contenido a mostrar puede variar entre las películas populares/resultados de la busqueda/lista de puntuadas
+
+Para las llamadas a API he decidido usar dos contextos para gestionar datos de API, por una parte el contexto de sesion de invitado y por otra el de películas. Estos contextos se sirven del estado de un reducer via useReducer y exportan también los métodos que llaman a API en un customHook. Podría haber usado los customHook fuera del contexto, simplemente fue un poco por agilizar.
+
+En cuanto a la apariencia, he usado material UI base, sin florituras.
+
+Y poco más que contar, espero que os guste, en realidad me hubiese gustado terminar la funcionalidad y darle una apariencia más bonita, así como estructurar un poco más el código. El fin de semana intentaré terminarla.
+
+Un saludo!
+
+## Funcionalidades
+
+- Búsqueda de películas por título.
+- Listado de películas populares.
+- Detalle de cada película.
+- Valoración de películas (se requiere sesión de invitado).
+- Página con listado de películas puntuadas [WIP]
+
+## Tecnologías utilizadas
+
+- React
+- TypeScript
+- React Router Dom
+- Context API
+- Material UI
+- Testing Library
+- Jest
+
+## Estructura de la aplicación
+
+- `src/`
+  - `components/`: componentes reutilizables
+  - `context/`: contextos de React
+  - `pages/`: páginas de la aplicación
+  - `shared/`: utilidades y types compartidos
+  - `App.tsx`: componente principal de la aplicación
+  - `index.tsx`: punto de entrada de la aplicación
+  - `setupTests.ts`: archivo de configuración para los tests
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Si quieres proponer alguna mejora o solucionar algún problema, por favor abre un issue o una pull request.
 
 ## Available Scripts
 
