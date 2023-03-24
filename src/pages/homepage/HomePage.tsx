@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMoviesContext } from "../../context/MovieContext";
-import Page from "../../components/page/page";
+import Page from "../../components/page/Page";
 
 const HomePage = (): JSX.Element => {
   const { popularMovies, getPopularMovies } = useMoviesContext();

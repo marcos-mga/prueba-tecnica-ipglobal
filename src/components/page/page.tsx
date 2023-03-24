@@ -1,10 +1,10 @@
 import { Container, Grid } from "@mui/material";
 import TopBar from "../topbar/TopBar";
-import MoviesList from "../MoviesList/moviesList";
-import Paginator from "../paginator/paginator";
-import Footer from "../footer/footer";
+import MoviesList from "../moviesList/MoviesList";
+import Paginator from "../paginator/Paginator";
+import Footer  from "../footer/Footer";
 import { Movie } from "../../shared/types/moviesTypes";
-import EmptyState from "../emptyState/emptyState";
+import EmptyState from "../emptyState/EmptyState";
 
 interface PageProps {
   moviesList: Movie[];

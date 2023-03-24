@@ -22,7 +22,7 @@ const TopBar: React.FC<Props> = ({ mode }: Props) => {
   };
 
   return (
-    <AppBar position="sticky" color="primary" sx={{ minHeight: 65 }}>
+    <AppBar position="sticky" color="primary" sx={{ minHeight: 65 }} data-testid={"top-bar"}>
       {mode === "home" && (
         <Toolbar
           sx={{ bgcolor: "#FFFFFF", width: "auto", m: 1, marginLeft: "auto" }}

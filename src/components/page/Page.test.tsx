@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import Page from "./page";
+import Page from "./Page";
 import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
 
@@ -46,8 +46,8 @@ describe("Page component", () => {
   it("renders TopBar, MoviesList and Footer components", () => {
     render(<Page moviesList={movieList} mode="home" />);
 
-    const topBarElement = screen.getByTestId("topbar");
-    const moviesListElement = screen.getByTestId("movieslist");
+    const topBarElement = screen.getByTestId("top-bar");
+    const moviesListElement = screen.getByTestId("movies-list");
     const footerElement = screen.getByTestId("footer");
 
     expect(topBarElement).toBeInTheDocument();
@@ -58,7 +58,7 @@ describe("Page component", () => {
   it("renders EmptyState component if moviesList prop is empty", () => {
     render(<Page moviesList={[]} mode="home" />);
 
-    const emptyStateElement = screen.getByTestId("emptystate");
+    const emptyStateElement = screen.getByTestId("empty-state");
 
     expect(emptyStateElement).toBeInTheDocument();
   });

@@ -8,7 +8,7 @@ interface MovieListProps {
 
 const MoviesList: React.FC<MovieListProps> = ({ movies }: MovieListProps) => {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} data-testid={"movies-list"}>
       {movies.map((movie) => (
         <Grid item key={movie.id} xs={12} sm={3} md={3} lg={3}>
           <MovieCard movie={movie} />

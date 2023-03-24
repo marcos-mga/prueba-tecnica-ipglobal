@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import { MoviesState, MovieContext } from "../shared/types/moviesTypes";
-import { moviesReducer } from "./reducers/moviesReducer";
+import { MoviesReducer } from "./reducers/Movies.reducer";
 import { useMoviesApi } from "./hooks/useMoviesApi";
 
 const MoviesContext = createContext<MovieContext | null>(null);
@@ -31,7 +31,7 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     error: null,
   };
 
-  const [state, dispatch] = useReducer(moviesReducer, initialState);
+  const [state, dispatch] = useReducer(MoviesReducer, initialState);
   const {
     searchTerm,
     pagination,

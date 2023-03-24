@@ -1,7 +1,7 @@
 import { MoviesState, MoviesAction } from "../../shared/types/moviesTypes";
 import * as actions from "./movies.actions";
 
-export const moviesReducer = (
+export const MoviesReducer = (
   state: MoviesState,
   action: MoviesAction
 ): MoviesState => {
@@ -37,13 +37,8 @@ export const moviesReducer = (
         isLoading: false,
       };
     case actions.RATE_MOVIE_SUCCESS:
-      const ratedMovie = action.payload;
-      const ratedMovies = state.ratedMovies.filter(
-        (movie) => movie.id !== ratedMovie.id
-      );
       return {
         ...state,
-        ratedMovies: [...ratedMovies, ratedMovie],
         isLoading: false,
       };
     case actions.GET_POPULAR_MOVIES_FAILURE:

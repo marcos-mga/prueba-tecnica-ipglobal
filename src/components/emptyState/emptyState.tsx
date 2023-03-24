@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 
-const emptyState: React.FC = () => {
+const EmptyState: React.FC = () => {
   return (
     <>
-      <Card>
+      <Card data-testid={"empty-state"}>
         <CardMedia
           sx={{ height: "50vh" }}
           image="https://media.gettyimages.com/id/474749946/es/foto/young-boy-ejecutivo-tiene-cara-triste.jpg?s=2048x2048&w=gi&k=20&c=46cZf3gv-7aXQyRODLK6F_gCdzrUPDSIhwh9k301Iuk="
@@ -20,4 +20,4 @@ const emptyState: React.FC = () => {
   );
 };
 
-export default emptyState;
+export default EmptyState;

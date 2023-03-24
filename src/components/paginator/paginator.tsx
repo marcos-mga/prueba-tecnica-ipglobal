@@ -25,6 +25,7 @@ const Paginator: React.FC<PaginatorProps> = ({ mode }) => {
         count={pagination.total_pages}
         page={pagination.page}
         onChange={handleChange}
+        data-testid={"paginator"}
       />
     </div>
   );

@@ -43,6 +43,34 @@ export interface MovieContext {
 
   rateMovie: any;
 }
+
+export interface GuestSessionContextType {
+  guestSessionId: string;
+  expiresAt: string;
+  createGuestSession: () => void;
+}
+
+export interface GuestSessionResponseType {
+  success: boolean;
+  guest_session_id: string;
+  expires_at: string;
+}
+
+export interface GuestSessionState {
+  guestSessionId: string;
+  expiresAt: string;
+  loading: boolean;
+  error: string | null;
+}
+
+export type GuestSessionAction =
+  | { type: "REQUEST_SESSION" }
+  | {
+      type: "SESSION_SUCCESS";
+      payload: { guestSessionId: string; expiresAt: string };
+    }
+  | { type: "SESSION_FAILURE"; payload: { error: string } };
+
 interface GetPopularMoviesRequestAction {
   type: "GET_POPULAR_MOVIES_REQUEST";
 }
@@ -78,7 +106,6 @@ interface RateMovieRequestAction {
 
 interface RateMovieSuccessAction {
   type: "RATE_MOVIE_SUCCESS";
-  payload: { id: number; rating: number };
 }
 
 interface RateMovieFailureAction {

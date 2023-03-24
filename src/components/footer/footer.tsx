@@ -4,6 +4,7 @@ import { Grid, Toolbar, Typography, Link, Paper } from "@mui/material";
 const Footer: React.FC = () => {
   return (
     <Paper
+      data-testid={"footer"}
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
       elevation={3}
     >

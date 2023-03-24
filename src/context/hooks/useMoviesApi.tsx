@@ -1,4 +1,5 @@
 import { Movie } from "../../shared/types/moviesTypes";
+import { needsCreateGuestSession } from "../../shared/utils/utils";
 import * as actions from "../reducers/movies.actions";
 
 export const useMoviesApi = (dispatch: any) => {
@@ -15,9 +16,6 @@ export const useMoviesApi = (dispatch: any) => {
           },
         }
       );
-      // const response = await fetch(
-      //   "https://developers.themoviedb.org/3/movies/get-popular-movies?api_key=8f781d70654b5a6f2fa69770d1d115a3&language=en-US&page=1"
-      // );
 
       const data = await response.json();
       const pagination = {
@@ -25,7 +23,6 @@ export const useMoviesApi = (dispatch: any) => {
         total_results: data.total_results,
         total_pages: data.total_pages,
       };
-      console.log({ response });
       const movies = data.results.map(
         (movie: any): Movie => ({
           posterPath: movie.poster_path,
@@ -94,8 +91,48 @@ export const useMoviesApi = (dispatch: any) => {
   };
 
   //[WIP]
-  const rateMovie = (id: number, rating: number) => {
-    dispatch({ type: "RATE_MOVIE", payload: { id, rating } });
+  const rateMovie = async (
+    movieId: string,
+    ratingValue: number,
+    expiresAt: string,
+    createGuestSession: () => void,
+    guestSessionId: string
+  ) => {
+    dispatch({
+      type: actions.RATE_MOVIE_REQUEST,
+    });
+    try {
+      if (needsCreateGuestSession(guestSessionId, expiresAt)) {
+        createGuestSession();
+        try {
+          await fetch(
+            `${process.env.REACT_APP_TMDB_RATE_ENDPOINT}/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`,
+            {
+              method: "POST",
+              body: JSON.stringify({ value: ratingValue }),
+            }
+          );
+          dispatch({ type: actions.RATE_MOVIE_SUCCESS });
+        } catch (error) {
+          dispatch({ type: actions.RATE_MOVIE_FAILURE, payload: error });
+        }
+      } else {
+        try {
+          await fetch(
+            `${process.env.REACT_APP_TMDB_RATE_ENDPOINT}/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`,
+            {
+              method: "POST",
+              body: JSON.stringify({ value: ratingValue }),
+            }
+          );
+          dispatch({ type: actions.RATE_MOVIE_SUCCESS });
+        } catch (error) {
+          dispatch({ type: actions.RATE_MOVIE_FAILURE, payload: error });
+        }
+      }
+    } catch (error) {
+      throw error;
+    }
   };
 
   return { getPopularMovies, searchMovies, rateMovie };

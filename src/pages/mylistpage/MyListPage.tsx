@@ -1,5 +1,5 @@
 import { useMoviesContext } from "../../context/MovieContext";
-import Page from "../../components/page/page";
+import Page from "../../components/page/Page";
 
 const MyListPage = (): JSX.Element => {
   const { ratedMovies } = useMoviesContext();

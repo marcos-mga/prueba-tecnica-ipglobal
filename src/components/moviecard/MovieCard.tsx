@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import RatingForm from "../rating/rating";
 import { Movie } from "../../shared/types/moviesTypes";
-
+import GuestSessionProvider from "../../context/guestSession/GuestSessionContext";
 interface MovieCardProps {
   movie: Movie;
 }
@@ -48,20 +48,25 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         </Typography>
       </CardContent>
 
-      <Collapse in={showDetails} timeout="auto">
+      <Collapse in={showDetails} timeout="auto" data-testid={"collapse"}>
         <CardContent>
           <Box mt={2}>
             <Typography
               variant="body1"
               component="p"
               sx={{ height: 200, overflow: "hidden", overflowY: "auto" }}
+              data-testid={"movie-overview"}
             >
               {movie.overview}
             </Typography>
           </Box>
           <Box mt={2}>
-            <Typography variant="subtitle2">Rate this movie:</Typography>
-            <RatingForm movieId={movie.id} />
+            <Typography data-testid={"movie-rate"} variant="subtitle2">
+              Rate this movie:
+            </Typography>
+            <GuestSessionProvider>
+              <RatingForm movieId={movie.id} />
+            </GuestSessionProvider>
           </Box>
         </CardContent>
       </Collapse>
