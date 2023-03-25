@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Rating, Button, Box } from "@mui/material";
-import { useMoviesContext } from "../../context/MovieContext";
-import { Movie } from "../../shared/types/moviesTypes";
+import { useMoviesContext } from "../../context/movies/MovieContext";
 import { useGuestSessionContext } from "../../context/guestSession/GuestSessionContext";
+import { needsCreateGuestSession } from "../../shared/utils/utils";
 type RatingProps = {
   movieId: number | undefined;
 };
@@ -10,8 +10,8 @@ type RatingProps = {
 const RatingForm: React.FC<RatingProps> = ({ movieId }: RatingProps) => {
   const [ratingValue, setRatingValue] = useState<number | null>(0);
   const { rateMovie } = useMoviesContext();
-  const { expiresAt, createGuestSession, guestSessionId } =
-    useGuestSessionContext();
+  const { guestSessionId } = useGuestSessionContext();
+
   const handleRatingChange = (
     event: React.SyntheticEvent<Element, Event>,
     value: number | null
@@ -20,14 +20,8 @@ const RatingForm: React.FC<RatingProps> = ({ movieId }: RatingProps) => {
   };
 
   const handleRateMovie = () => {
-    ratingValue &&
-      rateMovie(
-        movieId,
-        ratingValue,
-        expiresAt,
-        createGuestSession,
-        guestSessionId
-      );
+    console.log({ guestSessionId });
+    ratingValue && rateMovie(movieId, ratingValue, guestSessionId);
   };
 
   return (
@@ -37,6 +31,8 @@ const RatingForm: React.FC<RatingProps> = ({ movieId }: RatingProps) => {
           name="rating"
           value={ratingValue}
           onChange={handleRatingChange}
+          precision={0.5}
+          max={10}
         />
       </Box>
       <Button

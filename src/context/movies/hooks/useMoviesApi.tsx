@@ -1,9 +1,11 @@
-import { Movie } from "../../shared/types/moviesTypes";
-import { needsCreateGuestSession } from "../../shared/utils/utils";
+import { Movie } from "../../../shared/types/moviesTypes";
+import { needsCreateGuestSession } from "../../../shared/utils/utils";
 import * as actions from "../reducers/movies.actions";
+import { useGuestSessionContext } from "../../guestSession/GuestSessionContext";
 
 export const useMoviesApi = (dispatch: any) => {
   const getPopularMovies = async (page: number) => {
+    console.log({ page });
     dispatch({ type: actions.GET_POPULAR_MOVIES_REQUEST });
     try {
       const response = await fetch(
@@ -16,7 +18,6 @@ export const useMoviesApi = (dispatch: any) => {
           },
         }
       );
-
       const data = await response.json();
       const pagination = {
         page: data.page,
@@ -58,7 +59,9 @@ export const useMoviesApi = (dispatch: any) => {
       const response = await fetch(
         `${process.env.REACT_APP_TMDB_SEARCH_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=true`
       );
+      console.log({ response });
       const data = await response.json();
+      console.log({ data });
       const pagination = {
         page: data.page,
         total_results: data.total_results,
@@ -81,6 +84,7 @@ export const useMoviesApi = (dispatch: any) => {
           vote_count: movie.vote_count,
         })
       );
+      console.log({ movies });
       dispatch({
         type: actions.SEARCH_MOVIES_SUCCESS,
         payload: { movies, pagination },
@@ -94,44 +98,23 @@ export const useMoviesApi = (dispatch: any) => {
   const rateMovie = async (
     movieId: string,
     ratingValue: number,
-    expiresAt: string,
-    createGuestSession: () => void,
     guestSessionId: string
   ) => {
     dispatch({
       type: actions.RATE_MOVIE_REQUEST,
     });
+    
     try {
-      if (needsCreateGuestSession(guestSessionId, expiresAt)) {
-        createGuestSession();
-        try {
-          await fetch(
-            `${process.env.REACT_APP_TMDB_RATE_ENDPOINT}/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`,
-            {
-              method: "POST",
-              body: JSON.stringify({ value: ratingValue }),
-            }
-          );
-          dispatch({ type: actions.RATE_MOVIE_SUCCESS });
-        } catch (error) {
-          dispatch({ type: actions.RATE_MOVIE_FAILURE, payload: error });
+      await fetch(
+        `${process.env.REACT_APP_TMDB_RATE_ENDPOINT}/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`,
+        {
+          method: "POST",
+          body: JSON.stringify({ value: ratingValue }),
         }
-      } else {
-        try {
-          await fetch(
-            `${process.env.REACT_APP_TMDB_RATE_ENDPOINT}/${movieId}/rating?api_key=${process.env.REACT_APP_API_KEY}&guest_session_id=${guestSessionId}`,
-            {
-              method: "POST",
-              body: JSON.stringify({ value: ratingValue }),
-            }
-          );
-          dispatch({ type: actions.RATE_MOVIE_SUCCESS });
-        } catch (error) {
-          dispatch({ type: actions.RATE_MOVIE_FAILURE, payload: error });
-        }
-      }
+      );
+      dispatch({ type: actions.RATE_MOVIE_SUCCESS });
     } catch (error) {
-      throw error;
+      dispatch({ type: actions.RATE_MOVIE_FAILURE, payload: error });
     }
   };
 

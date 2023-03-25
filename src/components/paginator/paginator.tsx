@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Pagination } from "@mui/material";
-import { useMoviesContext } from "../../context/MovieContext";
+import { useMoviesContext } from "../../context/movies/MovieContext";
 
 interface PaginatorProps {
   mode: string;

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import MovieCard from "../moviecard/MovieCard";
+import MovieCard from "../movie-card/MovieCard";
 import { Movie } from "../../shared/types/moviesTypes";
 
 interface MovieListProps {
@@ -8,9 +8,14 @@ interface MovieListProps {
 
 const MoviesList: React.FC<MovieListProps> = ({ movies }: MovieListProps) => {
   return (
-    <Grid container spacing={2} data-testid={"movies-list"}>
+    <Grid
+      container
+      spacing={4}
+      columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+      data-testid={"movies-list"}
+    >
       {movies.map((movie) => (
-        <Grid item key={movie.id} xs={12} sm={3} md={3} lg={3}>
+        <Grid item  key={movie.id} xs={6} >
           <MovieCard movie={movie} />
         </Grid>
       ))}

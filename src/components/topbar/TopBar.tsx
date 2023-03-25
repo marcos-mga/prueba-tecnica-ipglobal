@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AppBar, IconButton, InputBase, Toolbar } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useMoviesContext } from "../../context/MovieContext";
+import { useMoviesContext } from "../../context/movies/MovieContext";
 
 type Props = {
   mode: string;
@@ -22,29 +22,32 @@ const TopBar: React.FC<Props> = ({ mode }: Props) => {
   };
 
   return (
-    <AppBar position="sticky" color="primary" sx={{ minHeight: 65 }} data-testid={"top-bar"}>
-      {mode === "home" && (
-        <Toolbar
-          sx={{ bgcolor: "#FFFFFF", width: "auto", m: 1, marginLeft: "auto" }}
+    <AppBar
+      position="sticky"
+      color="primary"
+      sx={{ minHeight: 65 }}
+      data-testid={"top-bar"}
+    >
+      <Toolbar
+        sx={{ bgcolor: "#FFFFFF", width: "auto", m: 1, marginLeft: "auto" }}
+      >
+        <InputBase
+          className={"classes.input"}
+          placeholder="Search movies"
+          value={searchTerm}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            setSearchTerm(event.target.value)
+          }
+          onKeyDown={handleKeyDown}
+        />
+        <IconButton
+          type="submit"
+          className={"classes.iconButton"}
+          onClick={handleSearch}
         >
-          <InputBase
-            className={"classes.input"}
-            placeholder="Search movies"
-            value={searchTerm}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchTerm(event.target.value)
-            }
-            onKeyDown={handleKeyDown}
-          />
-          <IconButton
-            type="submit"
-            className={"classes.iconButton"}
-            onClick={handleSearch}
-          >
-            <SearchIcon />
-          </IconButton>
-        </Toolbar>
-      )}
+          <SearchIcon />
+        </IconButton>
+      </Toolbar>
     </AppBar>
   );
 };

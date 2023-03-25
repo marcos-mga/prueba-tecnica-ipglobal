@@ -3,7 +3,7 @@ export const needsCreateGuestSession = (
   expiresAt: string
 ) => {
   return (
-    guestSessionId === " " ||
+    guestSessionId === "" ||
     (guestSessionId && new Date(expiresAt).getTime() < new Date().getTime())
   );
 };

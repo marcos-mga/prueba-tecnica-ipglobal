@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import RatingForm from "../rating/rating";
 import { Movie } from "../../shared/types/moviesTypes";
-import GuestSessionProvider from "../../context/guestSession/GuestSessionContext";
+
 interface MovieCardProps {
   movie: Movie;
 }
@@ -23,15 +23,24 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
   return (
     <Card data-testid={"movie-card"}>
-      <CardMedia
-        image={`${process.env.REACT_APP_TMDB_IMG_BASE_ENDPOINT}${movie.posterPath}`}
-        sx={{ height: 140 }}
-        title={movie.title}
-        onClick={handleShowDetails}
-      />
+      <Box sx={{ height: 300 }}>
+        <CardMedia
+          image={`${process.env.REACT_APP_TMDB_IMG_BASE_ENDPOINT}${movie.posterPath}`}
+          sx={{
+            height: "100%",
+            width: "100%",
+            padding: "1em 1em 0 1em",
+            objectFit: "cover",
+          }}
+          title={movie.title}
+          onClick={handleShowDetails}
+        />
+      </Box>
       <CardContent sx={{ height: 140 }}>
         <Typography
+          sx={{ height: 100 }}
           data-testid={"movie-title"}
+          paragraph
           gutterBottom
           variant="h5"
           component="h2"
@@ -43,18 +52,33 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           variant="body2"
           color="textSecondary"
           component="p"
+          gutterBottom
+          sx={{ pt: 5 }}
         >
           {movie.releaseDate}
         </Typography>
       </CardContent>
 
       <Collapse in={showDetails} timeout="auto" data-testid={"collapse"}>
-        <CardContent>
+        <CardContent sx={{ pt: 6 }}>
           <Box mt={2}>
             <Typography
               variant="body1"
               component="p"
-              sx={{ height: 200, overflow: "hidden", overflowY: "auto" }}
+              sx={{
+                height: 200,
+                overflow: "hidden",
+                overflowY: "auto",
+                "&::-webkit-scrollbar": {
+                  width: 5,
+                },
+                "&::-webkit-scrollbar-track": {
+                  backgroundColor: "grey",
+                },
+                "&::-webkit-scrollbar-thumb": {
+                  borderRadius: 2,
+                },
+              }}
               data-testid={"movie-overview"}
             >
               {movie.overview}
@@ -64,9 +88,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
             <Typography data-testid={"movie-rate"} variant="subtitle2">
               Rate this movie:
             </Typography>
-            <GuestSessionProvider>
-              <RatingForm movieId={movie.id} />
-            </GuestSessionProvider>
+            <RatingForm movieId={movie.id} />
           </Box>
         </CardContent>
       </Collapse>

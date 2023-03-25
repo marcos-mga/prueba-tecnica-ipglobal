@@ -27,6 +27,7 @@ export interface MoviesState {
   moviesList: Movie[];
   pagination: Pagination;
   searchTerm: string;
+  mode: string;
   isLoading: boolean;
   error: string | null;
 }
@@ -38,9 +39,11 @@ export interface MovieContext {
   moviesList: Movie[];
   pagination: Pagination;
   searchTerm: string;
+  mode: string;
   getPopularMovies: any;
   searchMovies: any;
-
+  isLoading: boolean;
+  error: any;
   rateMovie: any;
 }
 
@@ -64,12 +67,12 @@ export interface GuestSessionState {
 }
 
 export type GuestSessionAction =
-  | { type: "REQUEST_SESSION" }
+  | { type: "GET_GUEST_SESSION_REQUEST" }
   | {
-      type: "SESSION_SUCCESS";
+      type: "GET_GUEST_SESSION_SUCCESS";
       payload: { guestSessionId: string; expiresAt: string };
     }
-  | { type: "SESSION_FAILURE"; payload: { error: string } };
+  | { type: "GET_GUEST_SESSION_ERROR"; payload: { error: string } };
 
 interface GetPopularMoviesRequestAction {
   type: "GET_POPULAR_MOVIES_REQUEST";

@@ -1,4 +1,4 @@
-import { MoviesState, MoviesAction } from "../../shared/types/moviesTypes";
+import { MoviesState, MoviesAction } from "../../../shared/types/moviesTypes";
 import * as actions from "./movies.actions";
 
 export const MoviesReducer = (
@@ -27,6 +27,7 @@ export const MoviesReducer = (
         moviesList: action.payload.movies,
         pagination: action.payload.pagination,
         isLoading: false,
+        mode: "home",
       };
     case actions.SEARCH_MOVIES_SUCCESS:
       return {
@@ -35,6 +36,7 @@ export const MoviesReducer = (
         moviesList: action.payload.movies,
         pagination: action.payload.pagination,
         isLoading: false,
+        mode: "search",
       };
     case actions.RATE_MOVIE_SUCCESS:
       return {

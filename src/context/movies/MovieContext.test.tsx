@@ -3,7 +3,7 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MoviesProvider, { useMoviesContext } from "./MovieContext";
-import { Movie } from "../shared/types/moviesTypes";
+import { Movie } from "../../shared/types/moviesTypes";
 
 describe("MoviesContext", () => {
   describe("useMoviesContext", () => {

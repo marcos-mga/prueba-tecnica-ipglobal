@@ -1,16 +1,21 @@
 import { useEffect } from "react";
-import { useMoviesContext } from "../../context/MovieContext";
+import { useMoviesContext } from "../../context/movies/MovieContext";
+import { useGuestSessionContext } from "../../context/guestSession/GuestSessionContext";
+
 import Page from "../../components/page/Page";
+import { needsCreateGuestSession } from "../../shared/utils/utils";
 
 const HomePage = (): JSX.Element => {
-  const { popularMovies, getPopularMovies } = useMoviesContext();
-
+  const { moviesList, getPopularMovies, pagination, mode } = useMoviesContext();
+  const { createGuestSession, expiresAt, guestSessionId } =
+    useGuestSessionContext();
   useEffect(() => {
-    getPopularMovies(popularMovies);
+    needsCreateGuestSession(guestSessionId, expiresAt) && createGuestSession();
+    getPopularMovies(pagination.page);
   }, []);
   return (
     <>
-      <Page moviesList={popularMovies} mode="home" />
+      <Page moviesList={moviesList} mode={mode} />
     </>
   );
 };

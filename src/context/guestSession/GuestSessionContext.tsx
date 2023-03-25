@@ -2,7 +2,13 @@ import {
   GuestSessionContextType,
   GuestSessionState,
 } from "../../shared/types/moviesTypes";
-import { createContext, useContext, useReducer } from "react";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
 import { GuestSessionReducer } from "./reducers/GuestSessionReducer";
 import { useGuestSessionApi } from "./hooks/useGuestSessionApi";
 
@@ -24,9 +30,9 @@ const GuestSessionProvider = ({ children }: { children: React.ReactNode }) => {
     loading: false,
     error: "",
   };
-
   const [state, dispatch] = useReducer(GuestSessionReducer, initialState);
   const { guestSessionId, expiresAt } = state;
+
   const { createGuestSession } = useGuestSessionApi(dispatch);
 
   return (

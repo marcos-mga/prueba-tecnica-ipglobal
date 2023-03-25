@@ -11,6 +11,7 @@ const initialState = {
     total_results: 100,
     total_pages: 1,
   },
+  mode: "home",
   searchTerm: "",
   isLoading: false,
   error: null,

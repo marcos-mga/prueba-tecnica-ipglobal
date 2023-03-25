@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { MoviesState, MovieContext } from "../shared/types/moviesTypes";
+import { MoviesState, MovieContext } from "../../shared/types/moviesTypes";
 import { MoviesReducer } from "./reducers/Movies.reducer";
 import { useMoviesApi } from "./hooks/useMoviesApi";
 
@@ -27,6 +27,7 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
       total_pages: 1,
     },
     searchTerm: "",
+    mode: "home",
     isLoading: false,
     error: null,
   };
@@ -39,6 +40,9 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     popularMovies,
     searchResults,
     ratedMovies,
+    mode,
+    isLoading,
+    error,
   } = state;
   const { getPopularMovies, searchMovies, rateMovie } = useMoviesApi(dispatch);
 
@@ -46,11 +50,14 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     <MoviesContext.Provider
       value={{
         searchTerm,
+        mode,
         moviesList,
         popularMovies,
         searchResults,
         ratedMovies,
         pagination,
+        isLoading,
+        error,
         getPopularMovies,
         searchMovies,
         rateMovie,

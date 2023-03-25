@@ -9,6 +9,7 @@ export const useGuestSessionApi = (dispatch: any) => {
       );
       const data = await response.json();
       const { guest_session_id: guestSessionId, expires_at: expiresAt } = data;
+      console.log({ guestSessionId });
       dispatch({
         type: actions.GET_GUEST_SESSION_SUCCESS,
         payload: { guestSessionId, expiresAt },
