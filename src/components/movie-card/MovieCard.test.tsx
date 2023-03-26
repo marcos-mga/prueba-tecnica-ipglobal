@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
 import { getUserSession } from "../../shared/utils/utils";
-const { guestSessionId: userId } = getUserSession();
+const userId = getUserSession();
 const mockMovie: Movie = {
   id: 1,
   title: "The Movie",
@@ -36,7 +36,7 @@ jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
 }));
 const mockGuestContextValue = {
-  guestSessionId: userId,
+  guestSessionId: userId ?? "test",
 };
 jest.mock("../../context/guestSession/GuestSessionContext", () => ({
   useGuestSessionContext: () => mockGuestContextValue,

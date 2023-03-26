@@ -3,7 +3,6 @@ import * as actions from "../reducers/movies.actions";
 
 export const useMoviesApi = (dispatch: any) => {
   const getPopularMovies = async (page: number) => {
-    // console.log("getPopularMovies");
     dispatch({ type: actions.GET_POPULAR_MOVIES_REQUEST });
     try {
       const response = await fetch(

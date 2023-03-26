@@ -4,7 +4,7 @@ import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
 import { MemoryRouter } from "react-router-dom";
 import { getUserSession } from "../../shared/utils/utils";
-const { guestSessionId: userId } = getUserSession();
+const userId = getUserSession();
 const movieList: Movie[] = [
   {
     id: 1,
@@ -50,7 +50,7 @@ jest.mock("../../context/movies/MovieContext", () => ({
 }));
 
 const mockGuestContextValue = {
-  guestSessionId: userId,
+  guestSessionId: userId ?? "test",
 };
 jest.mock("../../context/guestSession/GuestSessionContext", () => ({
   useGuestSessionContext: () => mockGuestContextValue,

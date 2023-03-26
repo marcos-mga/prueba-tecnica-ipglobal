@@ -3,7 +3,7 @@ import TopBar from "./TopBar";
 import { MovieContext } from "../../shared/types/moviesTypes";
 import { MemoryRouter } from "react-router-dom";
 import { getUserSession } from "../../shared/utils/utils";
-const { guestSessionId: userId } = getUserSession();
+const userId = getUserSession();
 const mockSearchMovies = jest.fn();
 const mockContextValue: MovieContext = {
   moviesList: [],
@@ -29,7 +29,7 @@ jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
 }));
 const mockGuestContextValue = {
-  guestSessionId: userId,
+  guestSessionId: userId ?? "test",
 };
 jest.mock("../../context/guestSession/GuestSessionContext", () => ({
   useGuestSessionContext: () => mockGuestContextValue,
