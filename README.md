@@ -7,6 +7,8 @@ Antes de nada, un placer!
 Subida la integración funcionando!
 Finalmente he implementado todas las funcionalidades y arreglado un pelín los estilos con un tema de MaterialUI.
 
+Mi idea fue tener 2 pages, una para mostrar las películas valoradas y otro para la home, la cual alterna la lista de películas a mostrar entre los resultados de la búsqueda y los resutados de las películas más populares.
+
 No he podido finalizar todos los test por falta de tiempo.
 
 
@@ -18,8 +20,7 @@ Para las llamadas a API he decidido usar dos contextos para gestionar datos de A
 
 En cuanto a la apariencia, he usado material UI base, sin florituras.
 
-Y poco más que contar, espero que os guste, en realidad me hubiese gustado terminar la funcionalidad y darle una apariencia más bonita, así como estructurar un poco más el código. El fin de semana intentaré terminarla.
-
+Y poco más que contar, espero que os guste
 Un saludo!
 
 ## Funcionalidades
