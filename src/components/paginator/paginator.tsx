@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Pagination } from "@mui/material";
-import { useMoviesContext } from "../../context/MovieContext";
-
+import { useMoviesContext } from "../../context/movies/MovieContext";
+import { MODES } from "../../shared/constants/constants";
 interface PaginatorProps {
   mode: string;
 }
@@ -11,14 +11,14 @@ const Paginator: React.FC<PaginatorProps> = ({ mode }) => {
     useMoviesContext();
 
   const handleChange = (event: React.ChangeEvent<unknown>, page: number) => {
-    if (mode === "search") {
+    if (mode ===MODES.SEARCH) {
       searchMovies(searchTerm, page);
     } else {
       getPopularMovies(page);
     }
   };
 
-  return (
+  return mode !== MODES.RATED ? (
     <div className={"classes.root"}>
       <Pagination
         color="primary"
@@ -28,6 +28,6 @@ const Paginator: React.FC<PaginatorProps> = ({ mode }) => {
         data-testid={"paginator"}
       />
     </div>
-  );
+  ) : null;
 };
 export default Paginator;

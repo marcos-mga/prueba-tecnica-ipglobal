@@ -11,7 +11,12 @@ export const mockContextValue: MovieContext = {
     total_results: 100,
     total_pages: 1,
   },
+  mode: "home",
+  isLoading: false,
+  error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };

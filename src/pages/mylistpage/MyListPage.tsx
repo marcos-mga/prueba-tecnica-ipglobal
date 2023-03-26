@@ -1,14 +1,21 @@
-import { useMoviesContext } from "../../context/MovieContext";
+import { useMoviesContext } from "../../context/movies/MovieContext";
+import { useGuestSessionContext } from "../../context/guestSession/GuestSessionContext";
 import Page from "../../components/page/Page";
+import { useEffect } from "react";
 
 const MyListPage = (): JSX.Element => {
-  const { ratedMovies } = useMoviesContext();
+  const { ratedMovies, mode, getRatedMovies } = useMoviesContext();
+  const { guestSessionId } = useGuestSessionContext();
+
+  useEffect(() => {
+    getRatedMovies(guestSessionId);
+  }, []);
 
   return (
     <>
       <Page
         moviesList={ratedMovies}
-        mode="rated"
+        mode={mode}
         data-testid={"page-component"}
       />
     </>

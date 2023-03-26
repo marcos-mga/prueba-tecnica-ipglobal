@@ -3,22 +3,30 @@ import { renderHook, act } from "@testing-library/react-hooks";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import MoviesProvider, { useMoviesContext } from "./MovieContext";
-import { Movie } from "../shared/types/moviesTypes";
+import { Movie } from "../../shared/types/moviesTypes";
 
 describe("MoviesContext", () => {
   describe("useMoviesContext", () => {
-    it("throws an error when used outside of MoviesProvider", () => {
-      const { result } = renderHook(() => useMoviesContext());
+    it("throws an error when used outside of MoviesProvider", async () => {
+      let hook;
+      await act(async () => {
+        hook = renderHook(() => useMoviesContext());
+      });
+      const { result } = hook;
       expect(result.error).toEqual(
         Error("useMoviesContext must be used within a MoviesProvider")
       );
     });
 
-    it("returns context object when used inside MoviesProvider", () => {
+    it("returns context object when used inside MoviesProvider", async () => {
       const wrapper = ({ children }: { children: React.ReactNode }) => (
         <MoviesProvider>{children}</MoviesProvider>
       );
-      const { result } = renderHook(() => useMoviesContext(), { wrapper });
+      let hook;
+      await act(async () => {
+        hook = renderHook(() => useMoviesContext(), { wrapper });
+      });
+      const { result } = hook;
       expect(result.current.searchTerm).toEqual("");
       expect(typeof result.current.getPopularMovies).toEqual("function");
     });

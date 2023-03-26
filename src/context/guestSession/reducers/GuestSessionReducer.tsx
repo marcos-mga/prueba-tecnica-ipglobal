@@ -2,27 +2,27 @@ import {
   GuestSessionState,
   GuestSessionAction,
 } from "../../../shared/types/moviesTypes";
+import * as actions from "./GuestSession.actions";
 
 export const GuestSessionReducer = (
   state: GuestSessionState,
   action: GuestSessionAction
 ): GuestSessionState => {
   switch (action.type) {
-    case "REQUEST_SESSION":
+    case actions.GET_GUEST_SESSION_REQUEST:
       return {
         ...state,
         loading: true,
         error: null,
       };
-    case "SESSION_SUCCESS":
+    case actions.GET_GUEST_SESSION_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
         guestSessionId: action.payload.guestSessionId,
-        expiresAt: action.payload.expiresAt,
       };
-    case "SESSION_FAILURE":
+    case actions.GET_GUEST_SESSION_ERROR:
       return {
         ...state,
         loading: false,

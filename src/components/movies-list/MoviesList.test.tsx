@@ -2,7 +2,8 @@ import { render, screen } from "@testing-library/react";
 import MoviesList from "./MoviesList";
 import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
-
+import { getUserSession } from "../../shared/utils/utils";
+const userId = getUserSession();
 const mockMovies: Movie[] = [
   {
     id: 1,
@@ -33,13 +34,25 @@ const mockContextValue: MovieContext = {
     total_results: 100,
     total_pages: 1,
   },
+  mode: "home",
+  isLoading: false,
+  error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
+}));
+
+const mockGuestContextValue = {
+  guestSessionId: userId ?? "test",
+};
+jest.mock("../../context/guestSession/GuestSessionContext", () => ({
+  useGuestSessionContext: () => mockGuestContextValue,
 }));
 
 describe("MoviesList component", () => {

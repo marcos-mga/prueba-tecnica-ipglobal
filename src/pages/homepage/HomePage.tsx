@@ -1,16 +1,17 @@
 import { useEffect } from "react";
-import { useMoviesContext } from "../../context/MovieContext";
+import { useMoviesContext } from "../../context/movies/MovieContext";
+
 import Page from "../../components/page/Page";
 
 const HomePage = (): JSX.Element => {
-  const { popularMovies, getPopularMovies } = useMoviesContext();
+  const { moviesList, getPopularMovies, pagination, mode } = useMoviesContext();
 
   useEffect(() => {
-    getPopularMovies(popularMovies);
+    getPopularMovies(pagination.page);
   }, []);
   return (
     <>
-      <Page moviesList={popularMovies} mode="home" />
+      <Page moviesList={moviesList} mode={mode} />
     </>
   );
 };

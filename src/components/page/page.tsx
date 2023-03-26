@@ -1,11 +1,13 @@
 import { Container, Grid } from "@mui/material";
 import TopBar from "../topbar/TopBar";
-import MoviesList from "../moviesList/MoviesList";
+import MoviesList from "../movies-list/MoviesList";
 import Paginator from "../paginator/Paginator";
-import Footer  from "../footer/Footer";
+import Footer from "../footer/Footer";
+import EmptyState from "../empty-state/EmptyState";
+import UiState from "../ui-state/UiState";
 import { Movie } from "../../shared/types/moviesTypes";
-import EmptyState from "../emptyState/EmptyState";
-
+import ScrollToTopButton from "../scroll-to-top/ScrollToTop";
+import { MODES } from "../../shared/constants/constants";
 interface PageProps {
   moviesList: Movie[];
   mode: string;
@@ -14,19 +16,21 @@ interface PageProps {
 const Page: React.FC<PageProps> = ({ moviesList, mode }: PageProps) => {
   return (
     <Grid sx={{ height: "100vh" }}>
-      <TopBar mode={mode} />
-      <Container maxWidth="lg" sx={{ pt: 5 }}>
-        {!moviesList?.length && <EmptyState />}
-        <MoviesList movies={moviesList} />
-      </Container>
-      {moviesList?.length && (
-        <Container sx={{ pt: 5 }}>
-          <Grid container direction="column" alignItems="center">
-            <Paginator mode={mode} />
-          </Grid>
+      <UiState>
+        <TopBar />
+        <Container maxWidth="lg" sx={{ pt: 5, pb: 10 }}>
+          {mode !== MODES.RATED && moviesList?.length && (
+            <Container sx={{ pb: 5 }}>
+              <Grid container direction="column" alignItems="center">
+                <Paginator mode={mode} />
+              </Grid>
+            </Container>
+          )}
+          {!moviesList?.length && <EmptyState msg="NO RESULTS FOUND" />}
+          <MoviesList movies={moviesList} />
         </Container>
-      )}
-      <Footer />
+        <Footer />
+      </UiState>
     </Grid>
   );
 };

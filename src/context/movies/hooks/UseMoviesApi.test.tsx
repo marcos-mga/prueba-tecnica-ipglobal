@@ -42,14 +42,7 @@ describe("useMoviesApi hook", () => {
     ).result.current.getPopularMovies(page);
 
     expect(fetchSpy).toHaveBeenCalledWith(
-      `${process.env.REACT_APP_TMDB_GET_POPULAR_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`,
-      {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          "access-control-allow-origin": "*",
-        },
-      }
+      `${process.env.REACT_APP_TMDB_GET_POPULAR_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`
     );
     expect(dispatch).toHaveBeenCalledWith({
       type: actions.GET_POPULAR_MOVIES_REQUEST,
@@ -90,14 +83,7 @@ describe("useMoviesApi hook", () => {
     ).result.current.getPopularMovies(page);
 
     expect(fetchSpy).toHaveBeenCalledWith(
-      `${process.env.REACT_APP_TMDB_GET_POPULAR_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`,
-      {
-        method: "GET",
-        mode: "no-cors",
-        headers: {
-          "access-control-allow-origin": "*",
-        },
-      }
+      `${process.env.REACT_APP_TMDB_GET_POPULAR_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}`
     );
     expect(dispatch).toHaveBeenCalledWith({
       type: actions.GET_POPULAR_MOVIES_REQUEST,
@@ -122,7 +108,7 @@ describe("useMoviesApi hook", () => {
     );
 
     expect(fetchSpy).toHaveBeenCalledWith(
-      `${process.env.REACT_APP_TMDB_SEARCH_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=Test Query&page=1&include_adult=true`
+      `${process.env.REACT_APP_TMDB_SEARCH_ENDPOINT}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=Test Query&page=1&include_adult=false`
     );
     expect(dispatch).toHaveBeenCalledWith({
       type: actions.SEARCH_MOVIES_REQUEST,

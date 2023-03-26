@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
-
-const EmptyState: React.FC = () => {
+interface EmptyStateProps {
+  msg?: string;
+}
+const EmptyState: React.FC<EmptyStateProps> = ({ msg }: EmptyStateProps) => {
   return (
     <>
       <Card data-testid={"empty-state"}>
@@ -12,7 +14,7 @@ const EmptyState: React.FC = () => {
         />
         <CardContent>
           <Typography align="center" variant="h5" component="h2">
-            NO RESULTS FOUND
+            {msg}
           </Typography>
         </CardContent>
       </Card>
