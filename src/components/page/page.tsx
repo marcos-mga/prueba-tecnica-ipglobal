@@ -7,6 +7,7 @@ import EmptyState from "../empty-state/EmptyState";
 import UiState from "../ui-state/UiState";
 import { Movie } from "../../shared/types/moviesTypes";
 import ScrollToTopButton from "../scroll-to-top/ScrollToTop";
+import { MODES } from "../../shared/constants/constants";
 interface PageProps {
   moviesList: Movie[];
   mode: string;
@@ -18,7 +19,7 @@ const Page: React.FC<PageProps> = ({ moviesList, mode }: PageProps) => {
       <UiState>
         <TopBar />
         <Container maxWidth="lg" sx={{ pt: 5, pb: 10 }}>
-          {moviesList?.length && (
+          {mode !== MODES.RATED && moviesList?.length && (
             <Container sx={{ pb: 5 }}>
               <Grid container direction="column" alignItems="center">
                 <Paginator mode={mode} />

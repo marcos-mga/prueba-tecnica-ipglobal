@@ -5,10 +5,11 @@ import HomeIcon from "@mui/icons-material/Home";
 import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
 import { useMoviesContext } from "../../context/movies/MovieContext";
+import { MODES } from "../../shared/constants/constants";
 
 const TopBar: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const { searchMovies, resetSearch } = useMoviesContext();
+  const { searchMovies, resetSearch, mode } = useMoviesContext();
 
   const handleSearch = () => {
     searchMovies(searchTerm);
@@ -63,25 +64,27 @@ const TopBar: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <Toolbar>
-            <InputBase
-              className={"classes.input"}
-              placeholder="Search movies"
-              value={searchTerm}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-                setSearchTerm(event.target.value)
-              }
-              onKeyDown={handleKeyDown}
-            />
-            <IconButton
-              type="submit"
-              className={"classes.iconButton"}
-              onClick={handleSearch}
-              data-testid="button-search"
-            >
-              <SearchIcon />
-            </IconButton>
-          </Toolbar>
+          {mode !== MODES.RATED && (
+            <Toolbar>
+              <InputBase
+                className={"classes.input"}
+                placeholder="Search movies"
+                value={searchTerm}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                  setSearchTerm(event.target.value)
+                }
+                onKeyDown={handleKeyDown}
+              />
+              <IconButton
+                type="submit"
+                className={"classes.iconButton"}
+                onClick={handleSearch}
+                data-testid="button-search"
+              >
+                <SearchIcon />
+              </IconButton>
+            </Toolbar>
+          )}
         </Grid>
       </Grid>
     </AppBar>
