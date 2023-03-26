@@ -2,7 +2,9 @@ import { render, screen } from "@testing-library/react";
 import Page from "./Page";
 import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
-
+import { MemoryRouter } from "react-router-dom";
+import { getUserSession } from "../../shared/utils/utils";
+const { guestSessionId: userId } = getUserSession();
 const movieList: Movie[] = [
   {
     id: 1,
@@ -37,18 +39,29 @@ const mockContextValue: MovieContext = {
   isLoading: false,
   error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
 }));
 
+const mockGuestContextValue = {
+  guestSessionId: userId,
+};
+jest.mock("../../context/guestSession/GuestSessionContext", () => ({
+  useGuestSessionContext: () => mockGuestContextValue,
+}));
 describe("Page component", () => {
   it("renders TopBar, MoviesList and Footer components", () => {
-    render(<Page moviesList={movieList} mode="home" />);
-
+    render(
+      <MemoryRouter>
+        <Page moviesList={movieList} mode="home" />
+      </MemoryRouter>
+    );
     const topBarElement = screen.getByTestId("top-bar");
     const moviesListElement = screen.getByTestId("movies-list");
     const footerElement = screen.getByTestId("footer");
@@ -59,16 +72,22 @@ describe("Page component", () => {
   });
 
   it("renders EmptyState component if moviesList prop is empty", () => {
-    render(<Page moviesList={[]} mode="home" />);
-
+    render(
+      <MemoryRouter>
+        <Page moviesList={[]} mode="home" />
+      </MemoryRouter>
+    );
     const emptyStateElement = screen.getByTestId("empty-state");
 
     expect(emptyStateElement).toBeInTheDocument();
   });
 
   it("renders Paginator component if moviesList prop is not empty", () => {
-    render(<Page moviesList={movieList} mode="home" />);
-
+    render(
+      <MemoryRouter>
+        <Page moviesList={movieList} mode="home" />
+      </MemoryRouter>
+    );
     const paginatorElement = screen.getByTestId("paginator");
 
     expect(paginatorElement).toBeInTheDocument();

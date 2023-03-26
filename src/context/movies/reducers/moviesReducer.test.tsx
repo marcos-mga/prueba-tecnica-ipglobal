@@ -75,6 +75,7 @@ describe("MoviesReducer", () => {
       moviesList: movies,
       pagination,
       isLoading: false,
+      mode:'search'
     };
 
     const newState = MoviesReducer(initialState, {

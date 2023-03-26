@@ -17,11 +17,13 @@ const mockContextValue: MovieContext = {
   isLoading: false,
   error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
 }));
 

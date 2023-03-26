@@ -1,6 +1,13 @@
 import React from "react";
-import { Grid, Toolbar, Typography, Link, Paper } from "@mui/material";
-
+import {
+  Grid,
+  Toolbar,
+  Typography,
+  Link,
+  Paper,
+  IconButton,
+} from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 const Footer: React.FC = () => {
   return (
     <Paper
@@ -12,24 +19,41 @@ const Footer: React.FC = () => {
         <Typography variant="body1" color="inherit">
           © 2023 - Movies App
         </Typography>
-        <Grid sx={{ marginLeft: "auto" }} justifyContent="space-between">
-          <Link
-            sx={{ pr: 5 }}
-            href="https://github.com/marcos-mga/prueba-tecnica-ipglobal"
-            target="_blank"
-            rel="noopener"
-            className={"classes.link"}
+        <Grid
+          sx={{ marginLeft: "auto", display: "flex" }}
+          justifyContent="space-between"
+        >
+          <Grid item xs={4} sm={4} md={2} sx={{ marginLeft: "auto" }}>
+            <IconButton>
+              <LinkedInIcon />
+            </IconButton>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            sm={4}
+            md={2}
+            sx={{ marginLeft: "auto" }}
+            alignSelf="center"
           >
-            Repo de la prueba
-          </Link>
-          <Link
-            href="https://www.linkedin.com/in/marcos-manuel-garcía-aldao-26372712a"
-            target="_blank"
-            rel="noopener"
-            className={"classes.link"}
-          >
-            Mi LinkedIn
-          </Link>
+            <Link
+              sx={{ pr: 5 }}
+              href="https://www.linkedin.com/in/marcos-manuel-garcía-aldao-26372712a"
+              target="_blank"
+              rel="noopener"
+              className={"classes.link"}
+            >
+              Mi LinkedIn
+            </Link>
+            <Link
+              href="https://github.com/marcos-mga/prueba-tecnica-ipglobal"
+              target="_blank"
+              rel="noopener"
+              className={"classes.link"}
+            >
+              Repo de la prueba
+            </Link>
+          </Grid>
         </Grid>
       </Toolbar>
     </Paper>

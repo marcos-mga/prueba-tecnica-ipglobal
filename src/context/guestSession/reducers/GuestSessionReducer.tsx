@@ -21,7 +21,6 @@ export const GuestSessionReducer = (
         loading: false,
         error: null,
         guestSessionId: action.payload.guestSessionId,
-        expiresAt: action.payload.expiresAt,
       };
     case actions.GET_GUEST_SESSION_ERROR:
       return {

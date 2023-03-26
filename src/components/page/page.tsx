@@ -13,11 +13,10 @@ interface PageProps {
 }
 
 const Page: React.FC<PageProps> = ({ moviesList, mode }: PageProps) => {
-  console.log({ moviesList });
   return (
     <Grid sx={{ height: "100vh" }}>
       <UiState>
-        <TopBar mode={mode} />
+        <TopBar />
         <Container maxWidth="lg" sx={{ pt: 5, pb: 10 }}>
           {moviesList?.length && (
             <Container sx={{ pb: 5 }}>
@@ -26,7 +25,7 @@ const Page: React.FC<PageProps> = ({ moviesList, mode }: PageProps) => {
               </Grid>
             </Container>
           )}
-          {!moviesList?.length && <EmptyState />}
+          {!moviesList?.length && <EmptyState msg="NO RESULTS FOUND" />}
           <MoviesList movies={moviesList} />
         </Container>
         <Footer />

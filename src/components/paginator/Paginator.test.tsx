@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Paginator from "./Paginator";
 import { MovieContext } from "../../shared/types/moviesTypes";
@@ -18,11 +18,13 @@ const mockContextValue: MovieContext = {
   isLoading: false,
   error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
 }));
 
@@ -35,22 +37,24 @@ describe("Paginator component", () => {
     expect(paginatorElement).toBeInTheDocument();
   });
 
-  it("calls getPopularMovies method of context when mode is home", () => {
+  it("calls getPopularMovies method of context when mode is home", async () => {
     const { getPopularMovies } = mockContextValue;
-
     render(<Paginator mode="home" />);
 
-    userEvent.click(screen.getByText("2"));
+    await act(async () => {
+      userEvent.click(screen.getByText("2"));
+    });
 
     expect(getPopularMovies).toHaveBeenCalledWith(2);
   });
 
-  it("calls searchMovies method of context when mode is search", () => {
+  it("calls searchMovies method of context when mode is search", async () => {
     const { searchMovies, searchTerm } = mockContextValue;
 
     render(<Paginator mode="search" />);
-
-    userEvent.click(screen.getByText("2"));
+    await act(async () => {
+      userEvent.click(screen.getByText("2"));
+    });
 
     expect(searchMovies).toHaveBeenCalledWith(searchTerm, 2);
   });

@@ -44,7 +44,13 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
     isLoading,
     error,
   } = state;
-  const { getPopularMovies, searchMovies, rateMovie } = useMoviesApi(dispatch);
+  const {
+    getPopularMovies,
+    searchMovies,
+    rateMovie,
+    getRatedMovies,
+    resetSearch,
+  } = useMoviesApi(dispatch);
 
   return (
     <MoviesContext.Provider
@@ -61,6 +67,8 @@ const MoviesProvider = ({ children }: { children: React.ReactNode }) => {
         getPopularMovies,
         searchMovies,
         rateMovie,
+        getRatedMovies,
+        resetSearch,
       }}
     >
       {children}

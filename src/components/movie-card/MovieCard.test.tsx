@@ -2,7 +2,8 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import MovieCard from "./MovieCard";
 import { Movie } from "../../shared/types/moviesTypes";
 import { MovieContext } from "../../shared/types/moviesTypes";
-
+import { getUserSession } from "../../shared/utils/utils";
+const { guestSessionId: userId } = getUserSession();
 const mockMovie: Movie = {
   id: 1,
   title: "The Movie",
@@ -25,12 +26,20 @@ const mockContextValue: MovieContext = {
   isLoading: false,
   error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
+}));
+const mockGuestContextValue = {
+  guestSessionId: userId,
+};
+jest.mock("../../context/guestSession/GuestSessionContext", () => ({
+  useGuestSessionContext: () => mockGuestContextValue,
 }));
 describe("MovieCard component", () => {
   it("renders the movie title and release date", () => {
@@ -42,7 +51,7 @@ describe("MovieCard component", () => {
     expect(titleElement).toBeInTheDocument();
     expect(titleElement.textContent).toBe("The Movie");
     expect(dateElement).toBeInTheDocument();
-    expect(dateElement.textContent).toBe("2022-01-01");
+    expect(dateElement.textContent).toBe("Release Date : 2022-01-01");
   });
 
   it("renders the movie poster image", () => {

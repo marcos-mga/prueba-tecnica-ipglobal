@@ -1,19 +1,23 @@
 import { useMoviesContext } from "../../context/movies/MovieContext";
-import GuestSessionProvider from "../../context/guestSession/GuestSessionContext";
+import { useGuestSessionContext } from "../../context/guestSession/GuestSessionContext";
 import Page from "../../components/page/Page";
+import { useEffect } from "react";
 
 const MyListPage = (): JSX.Element => {
-  const { ratedMovies, mode } = useMoviesContext();
+  const { ratedMovies, mode, getRatedMovies } = useMoviesContext();
+  const { guestSessionId } = useGuestSessionContext();
+
+  useEffect(() => {
+    getRatedMovies(guestSessionId);
+  }, []);
 
   return (
     <>
-      <GuestSessionProvider>
-        <Page
-          moviesList={ratedMovies}
-          mode="rated"
-          data-testid={"page-component"}
-        />
-      </GuestSessionProvider>
+      <Page
+        moviesList={ratedMovies}
+        mode={mode}
+        data-testid={"page-component"}
+      />
     </>
   );
 };

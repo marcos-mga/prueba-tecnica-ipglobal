@@ -2,22 +2,17 @@ import {
   GuestSessionContextType,
   GuestSessionState,
 } from "../../shared/types/moviesTypes";
-import {
-  createContext,
-  useContext,
-  useReducer,
-  useState,
-  useEffect,
-} from "react";
+import { createContext, useContext, useReducer, useEffect } from "react";
 import { GuestSessionReducer } from "./reducers/GuestSessionReducer";
 import { useGuestSessionApi } from "./hooks/useGuestSessionApi";
+import { getUserSession } from "../../shared/utils/utils";
 
 const GuestSessionContext = createContext<GuestSessionContextType | null>(null);
 
 export const useGuestSessionContext = () => {
   const context = useContext(GuestSessionContext);
   if (!context) {
-    throw new Error("useMoviesContext must be used within a MoviesProvider");
+    throw new Error("useMoviesContext must be used within a GuestSessionProvider");
   }
 
   return context;
@@ -26,21 +21,22 @@ export const useGuestSessionContext = () => {
 const GuestSessionProvider = ({ children }: { children: React.ReactNode }) => {
   const initialState: GuestSessionState = {
     guestSessionId: "",
-    expiresAt: "",
     loading: false,
     error: "",
   };
   const [state, dispatch] = useReducer(GuestSessionReducer, initialState);
-  const { guestSessionId, expiresAt } = state;
-
+  const { guestSessionId } = state;
   const { createGuestSession } = useGuestSessionApi(dispatch);
+
+  const guestSession = getUserSession();
+  useEffect(() => {
+    guestSession ?? createGuestSession();
+  }, []);
 
   return (
     <GuestSessionContext.Provider
       value={{
-        guestSessionId,
-        expiresAt,
-        createGuestSession,
+        guestSessionId: guestSessionId || guestSession?.guestSessionId,
       }}
     >
       {children}

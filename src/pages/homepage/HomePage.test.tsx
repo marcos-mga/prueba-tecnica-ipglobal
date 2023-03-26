@@ -1,7 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { MovieContext } from "../../shared/types/moviesTypes";
 import HomePage from "./HomePage";
-
+import { MemoryRouter } from "react-router-dom";
+import { getUserSession } from "../../shared/utils/utils";
+const { guestSessionId: userId } = getUserSession();
 const mockPopularMovies = [
   {
     id: 1,
@@ -20,7 +22,7 @@ const mockPopularMovies = [
 ];
 
 const mockContextValue: MovieContext = {
-  moviesList: [],
+  moviesList: mockPopularMovies,
   popularMovies: mockPopularMovies,
   searchResults: [],
   searchTerm: "",
@@ -34,23 +36,40 @@ const mockContextValue: MovieContext = {
   isLoading: false,
   error: null,
   getPopularMovies: jest.fn(),
+  getRatedMovies: jest.fn(),
   searchMovies: jest.fn(),
   rateMovie: jest.fn(),
+  resetSearch: jest.fn(),
 };
 
-jest.mock("../../context/MovieContext", () => ({
+jest.mock("../../context/movies/MovieContext", () => ({
   useMoviesContext: () => mockContextValue,
+}));
+
+const mockGuestContextValue = {
+  guestSessionId: userId,
+};
+jest.mock("../../context/guestSession/GuestSessionContext", () => ({
+  useGuestSessionContext: () => mockGuestContextValue,
 }));
 
 describe("MyListPage", () => {
   test("should render the correct number of movies", () => {
-    render(<HomePage />);
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
 
     const movies = screen.getAllByTestId("movie-card");
     expect(movies).toHaveLength(2);
   });
   test("should render the movie details correctly", () => {
-    render(<HomePage />);
+    render(
+      <MemoryRouter>
+        <HomePage />
+      </MemoryRouter>
+    );
 
     const movieTitles = screen.getAllByTestId("movie-title");
     const movieRatings = screen.getAllByTestId("movie-date");

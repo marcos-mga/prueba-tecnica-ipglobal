@@ -42,6 +42,8 @@ export interface MovieContext {
   mode: string;
   getPopularMovies: any;
   searchMovies: any;
+  getRatedMovies: any;
+  resetSearch: any;
   isLoading: boolean;
   error: any;
   rateMovie: any;
@@ -49,8 +51,6 @@ export interface MovieContext {
 
 export interface GuestSessionContextType {
   guestSessionId: string;
-  expiresAt: string;
-  createGuestSession: () => void;
 }
 
 export interface GuestSessionResponseType {
@@ -61,7 +61,6 @@ export interface GuestSessionResponseType {
 
 export interface GuestSessionState {
   guestSessionId: string;
-  expiresAt: string;
   loading: boolean;
   error: string | null;
 }
@@ -70,7 +69,7 @@ export type GuestSessionAction =
   | { type: "GET_GUEST_SESSION_REQUEST" }
   | {
       type: "GET_GUEST_SESSION_SUCCESS";
-      payload: { guestSessionId: string; expiresAt: string };
+      payload: { guestSessionId: string };
     }
   | { type: "GET_GUEST_SESSION_ERROR"; payload: { error: string } };
 
@@ -116,6 +115,23 @@ interface RateMovieFailureAction {
   payload: { error: string };
 }
 
+interface GetRatedMoviesFailureAction {
+  type: "GET_RATED_MOVIES_FAILURE";
+  payload: { error: string };
+}
+
+interface GetRatedMoviesSuccessAction {
+  type: "GET_RATED_MOVIES_SUCCESS";
+  payload: { movies: Movie[]; pagination: Pagination };
+}
+
+interface GetRatedMoviesRequestAction {
+  type: "GET_RATED_MOVIES_REQUEST";
+}
+interface ResetSearchAction {
+  type: "RESET_SEARCH";
+}
+
 export type MoviesAction =
   | GetPopularMoviesRequestAction
   | GetPopularMoviesSuccessAction
@@ -125,4 +141,8 @@ export type MoviesAction =
   | SearchMoviesFailureAction
   | RateMovieRequestAction
   | RateMovieSuccessAction
-  | RateMovieFailureAction;
+  | RateMovieFailureAction
+  | GetRatedMoviesFailureAction
+  | GetRatedMoviesSuccessAction
+  | GetRatedMoviesRequestAction
+  | ResetSearchAction;

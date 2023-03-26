@@ -15,7 +15,7 @@ const MoviesList: React.FC<MovieListProps> = ({ movies }: MovieListProps) => {
       data-testid={"movies-list"}
     >
       {movies.map((movie) => (
-        <Grid item  key={movie.id} xs={6} >
+        <Grid item key={movie.id} xs={12} sm={6} md={4}>
           <MovieCard movie={movie} />
         </Grid>
       ))}

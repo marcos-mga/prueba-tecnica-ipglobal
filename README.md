@@ -4,10 +4,11 @@ Buenas!
 
 Antes de nada, un placer!
 
-Ahora mismo el desarrollo de la aplicación estaría completo salvo la parte de la lista de películas puntuadas, que necesito implementar el endpoint en el hook useMoviesApi para luego usaro en MyListPage.
-No he podido probar la integración con API más allá de la carga inicial de películas populares debido al problema persistente. El resto de integraciones cómo la páginación, la búsqueda, rating...etc no he podido probarlos.
+Subida la integración funcionando!
+Finalmente he implementado todas las funcionalidades y arreglado un pelín los estilos con un tema de MaterialUI.
 
-Me hubiese gustado tener más tiempo ya que realmente he empezado el miércoles 22 y el tema de la API me ha trastocado un poco los planes.
+No he podido finalizar todos los test por falta de tiempo.
+
 
 En cuanto al código, me hubiese gustado montar una buena estructura DDD pero por tiempo he decidido tirar un poco por lo de siempre intentando que la estructura fuera descriptiva y sencilla al tratarse de una funcionalidad limitida.
 

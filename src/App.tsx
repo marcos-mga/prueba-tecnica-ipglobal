@@ -7,14 +7,14 @@ import "./App.css";
 
 const App = (): JSX.Element => {
   return (
-    <React.StrictMode>
+    <>
       <CssBaseline />
       <GuestSessionProvider>
         <MoviesProvider>
           <MoviesRoutes />
         </MoviesProvider>
       </GuestSessionProvider>
-    </React.StrictMode>
+    </>
   );
 };
 

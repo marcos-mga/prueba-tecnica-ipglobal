@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Rating, Button, Box } from "@mui/material";
 import { useMoviesContext } from "../../context/movies/MovieContext";
 import { useGuestSessionContext } from "../../context/guestSession/GuestSessionContext";
-import { needsCreateGuestSession } from "../../shared/utils/utils";
+
 type RatingProps = {
   movieId: number | undefined;
 };
@@ -20,7 +20,6 @@ const RatingForm: React.FC<RatingProps> = ({ movieId }: RatingProps) => {
   };
 
   const handleRateMovie = () => {
-    console.log({ guestSessionId });
     ratingValue && rateMovie(movieId, ratingValue, guestSessionId);
   };
 
@@ -33,6 +32,7 @@ const RatingForm: React.FC<RatingProps> = ({ movieId }: RatingProps) => {
           onChange={handleRatingChange}
           precision={0.5}
           max={10}
+          data-testid="rating-form"
         />
       </Box>
       <Button
